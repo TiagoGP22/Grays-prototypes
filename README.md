@@ -11,7 +11,6 @@ The home page is split into five areas: **Terminal and Tap, eCommerce, Platform 
 /
 ├── index.html                       # home page + password gate
 ├── terminal-and-tap/
-│   └── teya-loyalty.html
 ├── ecommerce/
 ├── platform-and-services/
 ├── gateway/
@@ -74,17 +73,3 @@ Wait ~1 min, hard-refresh the live site (**Cmd/Ctrl+Shift+R**), enter the passwo
 - **Replacing a prototype?** Upload a file with the **same name** to the same folder — it overwrites on commit (no need to delete first).
 
 ---
-
-## Password & security — read this
-
-To change the password: open `index.html`, edit this line near the top of `<body>`:
-
-```html
-<script>window.SITE_PASSWORD = "teya-prototypes";</script>
-```
-
-⚠️ The password is a **deterrent, not real protection**. Because the site is static:
-- The password is visible to anyone who views page source.
-- Prototype files are reachable by direct URL without the password.
-
-It stops casual snooping but won't keep determined viewers out. **Don't put anything genuinely confidential here.** If we ever need real protection, we can switch to encrypted pages (AES — content unreadable without the password).
