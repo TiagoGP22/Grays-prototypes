@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MOTO Screens</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #e5e5e5;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    display: flex;
+    gap: 40px;
+    padding: 40px;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .phone {
+    width: 375px;
+    min-height: 812px;
+    background: #f5f5f5;
+    border-radius: 44px;
+    border: 10px solid #1a1a1a;
+    overflow: hidden;
+    box-shadow: 0 24px 48px rgba(0,0,0,0.3);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+
+  .status-bar {
+    background: #f5f5f5;
+    padding: 14px 20px 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  .status-bar .icons {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    font-size: 13px;
+  }
+
+  .browser-bar {
+    background: #f5f5f5;
+    padding: 6px 12px 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .url-bar {
+    flex: 1;
+    background: #e8e8e8;
+    border-radius: 8px;
+    padding: 6px 10px;
+    font-size: 12px;
+    color: #555;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .url-bar .lock { font-size: 10px; color: #555; }
+
+  .nav-icons {
+    display: flex;
+    gap: 8px;
+    font-size: 16px;
+    color: #333;
+  }
+
+  .screen-body {
+    flex: 1;
+    background: #f5f5f5;
+    overflow-y: auto;
+  }
+
+  /* ---- Screen 1 ---- */
+  .page-header {
+    padding: 16px 20px 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #f5f5f5;
+  }
+
+  .back-btn {
+    font-size: 22px;
+    color: #333;
+    cursor: pointer;
+  }
+
+  .page-title {
+    font-size: 17px;
+    font-weight: 500;
+    color: #111;
+  }
+
+  .card {
+    margin: 8px 16px;
+    background: #fff;
+    border-radius: 14px;
+    overflow: hidden;
+  }
+
+  .list-item {
+    display: flex;
+    align-items: center;
+    padding: 14px 16px;
+    border-bottom: 1px solid #f0f0f0;
+    gap: 14px;
+    cursor: pointer;
+  }
+
+  .list-item:last-child { border-bottom: none; }
+
+  .item-icon {
+    width: 38px;
+    height: 38px;
+    background: #f2f2f2;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+
+  .item-text { flex: 1; }
+  .item-text .label { font-size: 15px; font-weight: 500; color: #111; }
+  .item-text .sub { font-size: 13px; color: #999; margin-top: 2px; }
+
+  .chevron { font-size: 16px; color: #ccc; }
+
+  /* ---- Screen 2 ---- */
+  .s2-header {
+    padding: 16px 20px 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #f5f5f5;
+  }
+
+  .s2-title {
+    font-size: 17px;
+    font-weight: 500;
+    color: #111;
+  }
+
+  .s2-body {
+    padding: 20px 20px 0;
+  }
+
+  .s2-headline {
+    font-size: 24px;
+    font-weight: 700;
+    color: #111;
+    line-height: 1.25;
+    margin-bottom: 12px;
+  }
+
+  .s2-desc {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.5;
+    margin-bottom: 16px;
+  }
+
+  .s2-desc strong { color: #111; }
+
+  .upload-box {
+    background: #fff;
+    border-radius: 14px;
+    padding: 18px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  .upload-btn {
+    background: #111;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 14px 28px;
+    font-size: 15px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .upload-hint {
+    font-size: 12px;
+    color: #aaa;
+    text-align: center;
+  }
+
+  .notice-box {
+    background: #f7f7f7;
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 13px;
+    color: #666;
+    line-height: 1.45;
+    margin-bottom: 12px;
+  }
+
+  .files-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    color: #999;
+    text-transform: uppercase;
+    margin: 12px 0 8px;
+  }
+
+  .file-row {
+    background: #fff;
+    border-radius: 12px;
+    padding: 12px 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+
+  .file-icon {
+    width: 36px;
+    height: 36px;
+    background: #e8f5e9;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .file-icon svg { width: 18px; height: 18px; }
+
+  .file-info { flex: 1; }
+  .file-name { font-size: 14px; font-weight: 500; color: #111; }
+  .file-sub { font-size: 12px; color: #aaa; margin-top: 2px; }
+
+  .file-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .file-checkbox {
+    width: 20px;
+    height: 20px;
+    border: 1.5px solid #ccc;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+
+  .file-menu {
+    font-size: 16px;
+    color: #4caf50;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+
+  .cta-bar {
+    padding: 16px 20px 32px;
+    background: #f5f5f5;
+    margin-top: auto;
+  }
+
+  .cta-btn {
+    background: #d4f227;
+    color: #111;
+    border: none;
+    border-radius: 14px;
+    padding: 16px;
+    font-size: 16px;
+    font-weight: 600;
+    width: 100%;
+    cursor: pointer;
+  }
+
+  h3.screen-label {
+    text-align: center;
+    color: #666;
+    font-size: 13px;
+    margin-bottom: 12px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .phone-wrap { display: flex; flex-direction: column; }
+</style>
+</head>
+<body>
+
+<!-- Screen 1 -->
+<div class="phone-wrap">
+  <h3 class="screen-label">Screen 1 — Additional information</h3>
+  <div class="phone">
+    <div class="status-bar">
+      <span>9:41</span>
+      <div class="icons">
+        <span>▌▌▌</span>
+        <span>🛜</span>
+        <span>🔋</span>
+      </div>
+    </div>
+    <div class="browser-bar">
+      <div class="url-bar">
+        <span class="lock">🔒</span>
+        <span>sales.teya.com/deals/</span>
+      </div>
+      <div class="nav-icons">
+        <span>⊡</span>
+        <span>⋮</span>
+      </div>
+    </div>
+    <div class="screen-body">
+      <div class="page-header">
+        <span class="back-btn">←</span>
+        <span class="page-title">Additional information</span>
+      </div>
+
+      <div class="card">
+        <div class="list-item">
+          <div class="item-icon">🏪</div>
+          <div class="item-text">
+            <div class="label">Trading verification</div>
+            <div class="sub">Pending</div>
+          </div>
+          <span class="chevron">›</span>
+        </div>
+
+        <div class="list-item">
+          <div class="item-icon">👥</div>
+          <div class="item-text">
+            <div class="label">Business representatives verification</div>
+            <div class="sub">Pending</div>
+          </div>
+          <span class="chevron">›</span>
+        </div>
+
+        <div class="list-item">
+          <div class="item-icon">🏦</div>
+          <div class="item-text">
+            <div class="label">Settlement bank account</div>
+            <div class="sub">Pending</div>
+          </div>
+          <span class="chevron">›</span>
+        </div>
+
+        <div class="list-item">
+          <div class="item-icon">⌨️</div>
+          <div class="item-text">
+            <div class="label">MOTO verification</div>
+            <div class="sub">Pending</div>
+          </div>
+          <span class="chevron">›</span>
+        </div>
+
+        <div class="list-item">
+          <div class="item-icon" style="font-size:20px;">＋</div>
+          <div class="item-text">
+            <div class="label">Supporting context</div>
+            <div class="sub">Optional</div>
+          </div>
+          <span class="chevron">›</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Screen 2 -->
+<div class="phone-wrap">
+  <h3 class="screen-label">Screen 2 — MOTO verification</h3>
+  <div class="phone">
+    <div class="status-bar">
+      <span>9:41</span>
+      <div class="icons">
+        <span>▌▌▌</span>
+        <span>🛜</span>
+        <span>🔋</span>
+      </div>
+    </div>
+    <div class="browser-bar">
+      <div class="url-bar">
+        <span class="lock">🔒</span>
+        <span>sales.teya.com/deals/</span>
+      </div>
+      <div class="nav-icons">
+        <span>⊡</span>
+        <span>⋮</span>
+      </div>
+    </div>
+    <div class="screen-body">
+      <div class="s2-header">
+        <span class="back-btn">←</span>
+        <span class="s2-title">MOTO verification</span>
+      </div>
+
+      <div class="s2-body">
+        <div class="s2-headline">Upload your transaction history</div>
+        <div class="s2-desc">
+          To activate phone and mail order payments, we need to review your recent transaction history.<br><br>
+          Please upload statements or reports covering <strong>the last 6 months</strong>. You can upload more than one file.
+        </div>
+
+        <div class="upload-box">
+          <button class="upload-btn">
+            <span>↑</span> Upload document
+          </button>
+          <div class="upload-hint">PDF, JPG, PNG, XLSX, or CSV (max 10MB)</div>
+        </div>
+
+        <div class="notice-box">
+          MOTO is subject to review and approval. We'll be in touch once your documents have been assessed.
+        </div>
+
+        <div class="files-label">Previously uploaded files</div>
+
+        <div class="file-row">
+          <div class="file-icon">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12C23 12 19 20 12 20C5 20 1 12 1 12Z" stroke="#2e7d32" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="12" cy="12" r="3" stroke="#2e7d32" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="file-info">
+            <div class="file-name">file_name.png</div>
+            <div class="file-sub">Click to preview</div>
+          </div>
+          <div class="file-actions">
+            <div class="file-checkbox"></div>
+            <div class="file-menu">•••</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="cta-bar">
+      <button class="cta-btn">Continue</button>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
