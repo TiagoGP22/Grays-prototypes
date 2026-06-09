@@ -3,7 +3,7 @@
 A shared site for our clickable prototypes, hosted on GitHub Pages.
 
 🔗 **Live site:** https://tiagogp22.github.io/Acceptance-Prototypes/
-🔑 **Password:** `teya-prototypes`
+🔑 For the Password - check the Acceptance Slack Channel!
 
 The home page is split into five areas: **Terminal and Tap, eCommerce, Platform and Services, Gateway, Host.** Each prototype is a standalone HTML file in its area's folder.
 
