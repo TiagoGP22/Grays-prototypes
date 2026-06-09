@@ -26,20 +26,11 @@
     }
     .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
 
-    header {
-      padding: 56px 0 40px;
-      border-bottom: 1px solid var(--border);
-    }
+    header { padding: 56px 0 40px; border-bottom: 1px solid var(--border); }
     .badge {
-      display: inline-block;
-      background: var(--lime);
-      color: #1a1d12;
-      font-weight: 700;
-      font-size: 12px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      padding: 5px 12px;
-      border-radius: 999px;
+      display: inline-block; background: var(--lime); color: #1a1d12;
+      font-weight: 700; font-size: 12px; letter-spacing: 0.08em;
+      text-transform: uppercase; padding: 5px 12px; border-radius: 999px;
       margin-bottom: 18px;
     }
     h1 { font-size: 34px; font-weight: 800; letter-spacing: -0.02em; }
@@ -47,129 +38,172 @@
 
     main { padding: 40px 0 80px; }
     .category { margin-bottom: 44px; }
-    .category-head {
-      display: flex; align-items: baseline; gap: 12px;
-      margin-bottom: 16px;
-    }
+    .category-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 16px; }
     .category-head h2 { font-size: 20px; font-weight: 700; letter-spacing: -0.01em; }
     .count {
-      font-size: 13px; color: var(--muted);
-      background: var(--surface); border: 1px solid var(--border);
-      padding: 2px 9px; border-radius: 999px;
+      font-size: 13px; color: var(--muted); background: var(--surface);
+      border: 1px solid var(--border); padding: 2px 9px; border-radius: 999px;
     }
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 14px;
-    }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
     .card {
-      display: block;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 20px;
-      text-decoration: none;
-      color: var(--text);
+      display: block; background: var(--surface); border: 1px solid var(--border);
+      border-radius: 14px; padding: 20px; text-decoration: none; color: var(--text);
       transition: background .15s ease, border-color .15s ease, transform .15s ease;
     }
-    .card:hover {
-      background: var(--surface-hover);
-      border-color: var(--lime-soft);
-      transform: translateY(-2px);
-    }
+    .card:hover { background: var(--surface-hover); border-color: var(--lime-soft); transform: translateY(-2px); }
     .card .title { font-weight: 700; font-size: 16px; display: flex; align-items: center; gap: 8px; }
     .card .desc { color: var(--muted); font-size: 14px; margin-top: 6px; }
     .card .arrow { color: var(--lime); font-weight: 700; }
 
     .empty {
-      border: 1px dashed var(--border);
-      border-radius: 14px;
-      padding: 20px;
-      color: var(--muted);
-      font-size: 14px;
-      background: transparent;
+      border: 1px dashed var(--border); border-radius: 14px; padding: 20px;
+      color: var(--muted); font-size: 14px; background: transparent;
     }
     .empty code { color: var(--lime-soft); font-size: 13px; }
 
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 28px 0 48px;
-      color: var(--muted);
-      font-size: 13px;
-    }
+    footer { border-top: 1px solid var(--border); padding: 28px 0 48px; color: var(--muted); font-size: 13px; }
     footer a { color: var(--lime-soft); }
+
+    /* ---- Password gate (deterrent only) ---- */
+    #gate {
+      position: fixed; inset: 0; z-index: 9999; background: var(--bg);
+      display: flex; align-items: center; justify-content: center; padding: 24px;
+    }
+    #gate .box { width: 100%; max-width: 360px; text-align: center; }
+    #gate .badge { margin-bottom: 20px; }
+    #gate h2 { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
+    #gate p { color: var(--muted); font-size: 14px; margin-bottom: 20px; }
+    #gate input {
+      width: 100%; padding: 12px 14px; font-size: 15px; background: var(--surface);
+      border: 1px solid var(--border); border-radius: 10px; color: var(--text); outline: none;
+    }
+    #gate input:focus { border-color: var(--lime-soft); }
+    #gate button {
+      width: 100%; margin-top: 10px; padding: 12px 14px; background: var(--lime);
+      color: #1a1d12; font-weight: 700; font-size: 15px; border: none; border-radius: 10px; cursor: pointer;
+    }
+    #gate button:hover { background: var(--lime-soft); }
+    #gate .err { color: #ff8a80; font-size: 13px; margin-top: 12px; min-height: 16px; }
+    body.locked #app { display: none; }
   </style>
 </head>
-<body>
-  <header>
-    <div class="wrap">
+<body class="locked">
+
+  <!-- ============================================================= -->
+  <!-- PASSWORD: change the value below to set your team's password.  -->
+  <!-- Note: this is a deterrent only. See README "Security" section. -->
+  <!-- ============================================================= -->
+  <script>window.SITE_PASSWORD = "teya-prototypes";</script>
+
+  <div id="gate">
+    <div class="box">
       <span class="badge">Acceptance Team</span>
-      <h1>Prototypes</h1>
-      <p>A shared home for clickable prototypes across our product areas. Pick an area below to open the latest builds.</p>
+      <h2>Protected</h2>
+      <p>Enter the password to view the prototypes.</p>
+      <form id="gateForm" autocomplete="off">
+        <input id="gatePw" type="password" placeholder="Password" autofocus>
+        <button type="submit">Unlock</button>
+        <div class="err" id="gateErr"></div>
+      </form>
     </div>
-  </header>
+  </div>
 
-  <main>
-    <div class="wrap">
+  <div id="app">
+    <header>
+      <div class="wrap">
+        <span class="badge">Acceptance Team</span>
+        <h1>Prototypes</h1>
+        <p>A shared home for clickable prototypes across our product areas. Pick an area below to open the latest builds.</p>
+      </div>
+    </header>
 
-      <!-- Terminal and Tap -->
-      <section class="category">
-        <div class="category-head">
-          <h2>Terminal and Tap</h2>
-          <span class="count">1 prototype</span>
-        </div>
-        <div class="grid">
-          <a class="card" href="terminal-and-tap/teya-loyalty.html">
-            <div class="title">Teya Loyalty <span class="arrow">→</span></div>
-            <div class="desc">Card-machine rewards flow — standalone prototype.</div>
-          </a>
-        </div>
-      </section>
+    <main>
+      <div class="wrap">
 
-      <!-- eCommerce -->
-      <section class="category">
-        <div class="category-head">
-          <h2>eCommerce</h2>
-          <span class="count">0 prototypes</span>
-        </div>
-        <div class="empty">No prototypes yet. Drop them into <code>/ecommerce</code> and add a card here.</div>
-      </section>
+        <section class="category">
+          <div class="category-head">
+            <h2>Terminal and Tap</h2>
+            <span class="count">1 prototype</span>
+          </div>
+          <div class="grid">
+            <a class="card" href="terminal-and-tap/teya-loyalty.html">
+              <div class="title">Teya Loyalty <span class="arrow">→</span></div>
+              <div class="desc">Card-machine rewards flow — standalone prototype.</div>
+            </a>
+          </div>
+        </section>
 
-      <!-- Platform and Services -->
-      <section class="category">
-        <div class="category-head">
-          <h2>Platform and Services</h2>
-          <span class="count">0 prototypes</span>
-        </div>
-        <div class="empty">No prototypes yet. Drop them into <code>/platform-and-services</code> and add a card here.</div>
-      </section>
+        <section class="category">
+          <div class="category-head">
+            <h2>eCommerce</h2>
+            <span class="count">0 prototypes</span>
+          </div>
+          <div class="empty">No prototypes yet. Drop them into <code>/ecommerce</code> and add a card here.</div>
+        </section>
 
-      <!-- Gateway -->
-      <section class="category">
-        <div class="category-head">
-          <h2>Gateway</h2>
-          <span class="count">0 prototypes</span>
-        </div>
-        <div class="empty">No prototypes yet. Drop them into <code>/gateway</code> and add a card here.</div>
-      </section>
+        <section class="category">
+          <div class="category-head">
+            <h2>Platform and Services</h2>
+            <span class="count">0 prototypes</span>
+          </div>
+          <div class="empty">No prototypes yet. Drop them into <code>/platform-and-services</code> and add a card here.</div>
+        </section>
 
-      <!-- Host -->
-      <section class="category">
-        <div class="category-head">
-          <h2>Host</h2>
-          <span class="count">0 prototypes</span>
-        </div>
-        <div class="empty">No prototypes yet. Drop them into <code>/host</code> and add a card here.</div>
-      </section>
+        <section class="category">
+          <div class="category-head">
+            <h2>Gateway</h2>
+            <span class="count">0 prototypes</span>
+          </div>
+          <div class="empty">No prototypes yet. Drop them into <code>/gateway</code> and add a card here.</div>
+        </section>
 
-    </div>
-  </main>
+        <section class="category">
+          <div class="category-head">
+            <h2>Host</h2>
+            <span class="count">0 prototypes</span>
+          </div>
+          <div class="empty">No prototypes yet. Drop them into <code>/host</code> and add a card here.</div>
+        </section>
 
-  <footer>
-    <div class="wrap">
-      Maintained by the Acceptance Team · Hosted on GitHub Pages · See README to add a prototype.
-    </div>
-  </footer>
+      </div>
+    </main>
+
+    <footer>
+      <div class="wrap">
+        Maintained by the Acceptance Team · Hosted on GitHub Pages · See README to add a prototype.
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      var body = document.body;
+      var form = document.getElementById('gateForm');
+      var input = document.getElementById('gatePw');
+      var err = document.getElementById('gateErr');
+      var gate = document.getElementById('gate');
+
+      // Stay unlocked for the browser session after a correct entry.
+      if (sessionStorage.getItem('at_unlocked') === '1') { unlock(); }
+
+      function unlock() {
+        body.classList.remove('locked');
+        gate.style.display = 'none';
+      }
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (input.value === window.SITE_PASSWORD) {
+          sessionStorage.setItem('at_unlocked', '1');
+          unlock();
+        } else {
+          err.textContent = 'Incorrect password.';
+          input.value = '';
+          input.focus();
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
